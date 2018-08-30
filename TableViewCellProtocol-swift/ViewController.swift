@@ -9,17 +9,64 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var tableView: UITableView!
+    fileprivate let cellId = "IdCell"
+    
+    var arrContainer : [String] = ["Viktor", "Hugo", "Rodolfo", "Nana", "Miriam"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        setupTableView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
+    
+    
+    
 }
+
+// MARK - TableViewDelegate
+extension ViewController : UITableViewDelegate,UITableViewDataSource{
+    
+    
+    fileprivate func setupTableView(){
+        
+        tableView.tableFooterView = UIView()
+        
+        // 1. Register a cell for our tableView
+        let nibName = UINib(nibName: "CustomCell", bundle: nil)
+        tableView.register(nibName, forCellReuseIdentifier: cellId)
+        
+    }
+    
+    // Number of section in table view
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // Number of row in table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.arrContainer.count > 0 ? arrContainer.count : 0
+    }
+    
+    
+    // Create a cell for each table view row
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CustomCell
+        
+        let name : String = arrContainer[indexPath.row]
+        cell.strName = name
+        
+        return cell
+        
+    }
+    
+    
+    
+    
+}
+
 
