@@ -56,7 +56,8 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CustomCell
-        
+        cell.delegate = self
+        cell.iNumberIndex = indexPath.row
         let name : String = arrContainer[indexPath.row]
         cell.strName = name
         
@@ -64,9 +65,20 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource{
         
     }
     
+}
+
+extension ViewController : CustomCellDelegate{
     
+    func OnClickBtn(iNumber: Int) {
+        // seleccionamos el nombre por el indice pasado
+        print("you selected \(arrContainer[iNumber])")
+    }
     
     
 }
+
+
+
+
 
 

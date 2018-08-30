@@ -8,14 +8,18 @@
 
 import Foundation
 import UIKit
+protocol CustomCellDelegate {
+    func OnClickBtn(iNumber : Int)
+}
 
 class CustomCell: UITableViewCell {
-    
-  
     
     @IBOutlet weak var lblName: UILabel!
     
 
+    var delegate : CustomCellDelegate?
+    var iNumberIndex : Int?
+    
     var strName : String?{
         didSet{
             lblName.text = strName
@@ -24,7 +28,9 @@ class CustomCell: UITableViewCell {
     }
     
     @IBAction func OnClick(_ sender: Any) {
-        
+        if let index = iNumberIndex{
+            delegate?.OnClickBtn(iNumber: index)
+        }
         
     }
 }
